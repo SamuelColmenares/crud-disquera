@@ -16,8 +16,10 @@ public final class Principal extends javax.swing.JFrame {
     Statement st;
     ResultSet rs;
     DefaultTableModel modelo;
-    int id;
-    
+    Artista artista = new Artista(con);
+    Productor productor = new Productor(con);
+    Vendedor vendedor = new Vendedor(con);
+
     public Principal() {
         initComponents();
         setLocationRelativeto(null);
@@ -440,19 +442,22 @@ public final class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgreArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreArtActionPerformed
-        AgregarArt();
+        artista.AgregarArt(txtNomArt.getText(), txtIdentArt.getText());
+        LimpiarTabla();
         Listar();
         nuevo();
     }//GEN-LAST:event_btnAgreArtActionPerformed
 
     private void btnAgreProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreProdActionPerformed
-        AgregarProd();
+        productor.AgregarProd(txtNomProd.getText(), txtIdentProd.getText());
+        LimpiarTablaPro();
         ListarPro();
         nuevoP();
     }//GEN-LAST:event_btnAgreProdActionPerformed
 
     private void btnAgreVendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgreVendActionPerformed
-        AgregarVen();
+        vendedor.AgregarVen(txtNomVend.getText(), txtIdentVend.getText());
+        LimpiarTablaVen();
         ListarVen();
         nuevoV();
     }//GEN-LAST:event_btnAgreVendActionPerformed
@@ -472,34 +477,15 @@ public final class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaDatosMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        modificarArt();
+        artista.modificarArt(txtNomArt.getText(), txtIdentArt.getText(), txtidArt.getText());
+        LimpiarTabla();
         Listar();
         nuevo();
     }//GEN-LAST:event_btnModificarActionPerformed
-   
-    void modificarArt() {
-        String nom = txtNomArt.getText();
-        String ide = txtIdentArt.getText();
-        String artistaId = txtidArt.getText();
-        String sql = "UPDATE ARTISTA SET nom_artista='" + nom + "',identificacion='" + ide + "' WHERE idArtista=" + artistaId;
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar Datos");
-        } else {
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Actualizado");
-                LimpiarTabla();
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminarArt();
+        artista.eliminarArt(txtidArt.getText());
+        LimpiarTabla();
         Listar();
         nuevo();
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -531,34 +517,15 @@ public final class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaDatosProMouseClicked
 
     private void btnModificarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPActionPerformed
-        modificarPro();
+        productor.modificarPro(txtNomProd.getText(), txtIdentProd.getText(), txtidPro.getText());
+        LimpiarTablaPro();
         ListarPro();
         nuevoP();
     }//GEN-LAST:event_btnModificarPActionPerformed
-    void modificarPro() {
-        String nom = txtNomProd.getText();
-        String ide = txtIdentProd.getText();
-        String idProductor = txtidPro.getText();
-        String sql = "UPDATE PRODUCTOR SET nom_productor='" + nom + "',identificacion='" + ide + "' WHERE idProductor=" + idProductor;
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar Datos");
-        } else {
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Actualizado");
-                LimpiarTablaPro();
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
-
 
     private void btnEliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPActionPerformed
-        eliminarPro();
+        productor.eliminarPro(txtidPro.getText());
+        LimpiarTablaPro();
         ListarPro();
         nuevoP();
     }//GEN-LAST:event_btnEliminarPActionPerformed
@@ -578,36 +545,18 @@ public final class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaDatosVenMouseClicked
 
     private void btnModificarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVActionPerformed
-        modificarVen();
+        vendedor.modificarVen(txtNomVend.getText(), txtIdentVend.getText(), txtidVen.getText());
+        LimpiarTablaVen();
         ListarVen();
         nuevoV();
     }//GEN-LAST:event_btnModificarVActionPerformed
 
     private void btnEliminarVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVActionPerformed
-        eliminarVen();
+        vendedor.eliminarVen(txtidVen.getText());
+        LimpiarTablaVen();
         ListarVen();
         nuevoV();
     }//GEN-LAST:event_btnEliminarVActionPerformed
-    void modificarVen() {
-        String nom = txtNomVend.getText();
-        String ide = txtIdentVend.getText();
-        String idVendedor = txtidVen.getText();
-        String sql = "UPDATE VENDEDOR SET nom_vendedor='" + nom + "',identificacion='" + ide + "' WHERE idVendedor=" + idVendedor;
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar Datos");
-        } else {
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Actualizado");
-                LimpiarTablaVen();
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
 
     /**
      * @param args the command line arguments
@@ -645,7 +594,7 @@ public final class Principal extends javax.swing.JFrame {
     }
 
     void Listar() {
-        String sql = "SELECT *FROM ARTISTA";
+        String sql = "SELECT idArtista, nom_artista, identificacion FROM ARTISTA";
 
         try {
             cn = con.getConnection();
@@ -716,56 +665,13 @@ public final class Principal extends javax.swing.JFrame {
 
     }
 
-    
-    void AgregarArt() {
-        String nom = txtNomArt.getText();
-        String ide = txtIdentArt.getText();
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "La Tabla esta Vacia...!!!");
-        } else {
-            String sql = "INSERT INTO ARTISTA(nom_artista,identificacion)VALUES('" + nom + "','" + ide + "')";
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Artista Agregado...!!!");
-                LimpiarTabla();
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
     void LimpiarTabla() {
         modelo = (DefaultTableModel) TablaDatos.getModel();
-        for (int i = 0; i <= TablaDatos.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
+        while (TablaDatos.getRowCount() > 0) {
+            modelo.removeRow(0);
         }
     }
 
-   
-    void eliminarArt() {
-        int filaseleccionado = TablaDatos.getSelectedRow();
-
-        if (filaseleccionado == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar fila");
-        } else {
-            String artistaId = txtidArt.getText();
-            String sql = "DELETE FROM ARTISTA WHERE idArtista=" + artistaId;
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Eliminado con exito...!!!");
-                LimpiarTabla();
-            } catch (Exception e) {
-
-            }
-
-        }
-    }
-    
     void nuevo() {
         txtidArt.setText("");
         txtNomArt.setText("");
@@ -773,51 +679,10 @@ public final class Principal extends javax.swing.JFrame {
         txtNomArt.requestFocus();
     }
 
-    void AgregarProd() {
-        String nom = txtNomProd.getText();
-        String ide = txtIdentProd.getText();
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "La Tabla esta Vacia...!!!");
-        } else {
-            String sql = "INSERT INTO PRODUCTOR(nom_productor,identificacion)VALUES('" + nom + "','" + ide + "')";
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Productor Agregado...!!!");
-                LimpiarTablaPro();
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
     void LimpiarTablaPro() {
         modelo = (DefaultTableModel) TablaDatosPro.getModel();
-        for (int i = 0; i <= TablaDatosPro.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
-    }
-
-    void eliminarPro() {
-        int filaseleccionado = TablaDatosPro.getSelectedRow();
-
-        if (filaseleccionado == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar fila");
-        } else {
-            String idProductor = txtidPro.getText();
-            String sql = "DELETE FROM PRODUCTOR WHERE idProductor=" + idProductor;
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Eliminado con exito...!!!");
-                LimpiarTablaPro();
-            } catch (Exception e) {
-
-            }
-
+        while (TablaDatosPro.getRowCount() > 0) {
+            modelo.removeRow(0);
         }
     }
 
@@ -828,51 +693,10 @@ public final class Principal extends javax.swing.JFrame {
         txtNomProd.requestFocus();
     }
 
-    void AgregarVen() {
-        String nom = txtNomVend.getText();
-        String ide = txtIdentVend.getText();
-        if (nom.equals("") || ide.equals("")) {
-            JOptionPane.showMessageDialog(null, "La Tabla esta Vacia...!!!");
-        } else {
-            String sql = "INSERT INTO VENDEDOR(nom_vendedor,identificacion)VALUES('" + nom + "','" + ide + "')";
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Vendedor Agregado...!!!");
-                LimpiarTablaVen();
-            } catch (Exception e) {
-
-            }
-        }
-    }
-
     void LimpiarTablaVen() {
         modelo = (DefaultTableModel) TablaDatosVen.getModel();
-        for (int i = 0; i <= TablaDatosVen.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
-    }
-
-    void eliminarVen() {
-        int filaseleccionado = TablaDatosVen.getSelectedRow();
-
-        if (filaseleccionado == -1) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar fila");
-        } else {
-            String idVendedor = txtidVen.getText();
-            String sql = "DELETE FROM vendedor WHERE idVendedor=" + idVendedor;
-            try {
-                cn = con.getConnection();
-                st = cn.createStatement();
-                st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Usuario Eliminado con exito...!!!");
-                LimpiarTablaVen();
-            } catch (Exception e) {
-
-            }
-
+        while (TablaDatosVen.getRowCount() > 0) {
+            modelo.removeRow(0);
         }
     }
 
