@@ -24,10 +24,10 @@ Tarea de la unidad 4 y 5 de la materia _`Desarrollo de Software 2`_ - **UNIREMIN
 
 ## Instalación
 
-1. De la carpeta [BD](http://github.com) tomar el archivo `disqueraNueva.sql` y ejecutarlo en HeidiSQL.
+1. De la carpeta [BD](https://github.com/SamuelColmenares/crud-disquera/tree/master/BD) tomar el archivo `disqueraNueva.sql` y ejecutarlo en HeidiSQL.
 2. Descargar o clonar el código y desde Netbeans buscar el lugar de descarga para cargar el proyecto.
 3. Ejecutar.
 
 ## Adicionales
 
-En la carpeta [BD](http://github.com) se encuentra el archivo `consultas.sql` con las consultas generadas para el proyecto.
+En la carpeta [BD](https://github.com/SamuelColmenares/crud-disquera/tree/master/BD) se encuentra el archivo `consultas.sql` con las consultas generadas para el proyecto.
